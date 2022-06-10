@@ -32,7 +32,7 @@ public:
 
                 if (s[i] == s[j]) {
                     // s[i]==s[j]且长度为2或3，是回文串，如：aa, aba
-                    if (j - i < 3) f[i][j] = true;
+                    if (l < 4) f[i][j] = true;
                     else f[i][j] = f[i+1][j-1];
                 } else {    // i~j不是回文串
                     f[i][j] = false;
