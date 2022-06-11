@@ -29,6 +29,9 @@
     "debug.onTaskErrors": "showErrors",
     "window.zoomLevel": 1,
     "files.associations": {
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "vector": "cpp",
+        "iosfwd": "cpp",
+        "iterator": "cpp"
     }
 }
