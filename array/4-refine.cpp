@@ -23,17 +23,17 @@ public:
         // 在nums1数组[0, m]区间内进行适当分割
         // 使nums1[i-1] <= nums2[j] && nums2[j-1] <= nums1[i]
         while (l < r) {
-            int i = l + (r - l + 1) / 2;    // nums1分割线左边元素个数
+            int i = l + (r - l) / 2;        // nums1分割线左边元素个数
             int j = totalLeft - i;          // nums2分割线左边元素个数
 
-            if (nums1[i - 1] > nums2[j])    // nums1左边最大值比nums2右边最小值大，说明分割线需要向左移
-                r = i - 1;      // 下一轮搜索区间[left, i-1]
+            if (nums2[j - 1] > nums1[i])    // nums2左边最大值比nums1右边最小值大，说明分割线需要向右移
+                l = i + 1;      // 下一轮搜索区间[i+1, right]
             else
-                l = i;          // 下一轮搜索区间[i, right]
+                r = i;          // 下一轮搜索区间[left, i]
         }
 
-        int i = l;
-        int j = totalLeft - i;
+        int i = l;              // nums1左边元素个数
+        int j = totalLeft - i;  // nums2左边元素个数
 
         int leftMax1 = i == 0 ? INT_MIN : nums1[i-1];
         int rightMin1 = i == m ? INT_MAX : nums1[i];
