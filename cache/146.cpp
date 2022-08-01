@@ -10,8 +10,7 @@
  */
 
 class LRUCache {
-public:
-
+private:
     // 双向链表节点
     struct LinkNode {
         int key, val;
@@ -22,14 +21,16 @@ public:
         LinkNode(int k, int v): key(k), val(v), prev(nullptr), next(nullptr) {}
     };
 
-    int size;       // 当前item个数
     int capacity;   // cache容量
+    int size;       // 当前item个数
+
     LinkNode* head; // 双向链表头，虚拟节点
     LinkNode* tail; // 双向链表尾，虚拟节点
 
     // LRU cache
     unordered_map<int, LinkNode*> cache;
 
+public:
     void push_front(LinkNode* node) {   // 链表头加一个节点
         node->prev = head;
         node->next = head->next;
@@ -37,7 +38,7 @@ public:
         head->next = node;
     }
 
-    void remove(LinkNode* node) {       // 删除指点节点
+    void remove(LinkNode* node) {       // 从链表删除指点节点
         node->prev->next = node->next;
         node->next->prev = node->prev;
     }
@@ -48,7 +49,7 @@ public:
         return node;
     }
 
-    void move_front(LinkNode* node) {   // 将指点节点移到表头
+    void move_front(LinkNode* node) {   // 将指定节点移到表头
         remove(node);                   // 先删除该节点
         push_front(node);               // 将该节点加入链表头
     }
@@ -73,7 +74,7 @@ public:
         head->next = tail;
         tail->prev = head;
     }
-    
+
     int get(int key) {
         if (!cache.count(key)) return -1;
 
@@ -81,7 +82,7 @@ public:
         move_front(node);
         return node->val;
     }
-    
+
     void put(int key, int value) {
         if (!cache.count(key)) {        // cache中不存在该key
             LinkNode* node = new LinkNode(key, value);
