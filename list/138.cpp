@@ -35,7 +35,7 @@ public:
     Node* copyRandomList(Node* head) {
         if (!head) return nullptr;
 
-        if (hash.count(head)) {
+        if (!hash.count(head)) {
            Node* node = new Node(head->val);
            hash[head] = node;
            node->next = copyRandomList(head->next);
