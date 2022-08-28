@@ -41,26 +41,22 @@ public:
                 hash[p] = node;
             }
 
-            // 复制儿子节点
-            if (p->left && !hash.count(p->left)) {
-                hash[p->left] = new NodeCopy(p->left->val);
-                q.push(p->left);
-            }
+            if (p->left) q.push(p->left);
+            if (p->right) q.push(p->right);
+        }
 
-            if (p->right && !hash.count(p->right)) {
-                hash[p->right] = new NodeCopy(p->right->val);
-                q.push(p->right);
-            }
+        q.push(root);
+        
+        // 为新树的left、right、random赋值
+        while (!q.empty()) {
+            Node* p = q.front(); q.pop();
 
-            if (p->random && !hash.count(p->random)) {
-                hash[p->random] = new NodeCopy(p->random->val);
-                q.push(p->random);
-            }
-
-            // 为新树的left、right、random赋值
             hash[p]->left = p->left ? hash[p->left] : nullptr;
             hash[p]->right = p->right ? hash[p->right] : nullptr;
             hash[p]->random = p->random ? hash[p->random] : nullptr;
+
+            if (p->left) q.push(p->left);
+            if (p->right) q.push(p->right);
         }
 
         return hash[root];
